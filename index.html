@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <!-- viewport 设置，确保移动端适配 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>交通运输普法宣传 · 视频</title>
+
+    <style>
+        /* ============================================================
+                   1. 全局重置 & 基础样式
+                   ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #f5f7fa;
+            color: #1e2a3a;
+            line-height: 1.6;
+            /* 为固定导航栏留出顶部空间 */
+            padding-top: 64px;
+        }
+
+        /* ============================================================
+                   2. 页头 / 导航栏
+                   ============================================================ */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: #0b2a4a;
+            color: #fff;
+            padding: 0 20px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            user-select: none;
+        }
+        .header-brand .icon {
+            font-size: 24px;
+            margin-right: 8px;
+        }
+        .header-brand .sub {
+            font-weight: 300;
+            font-size: 14px;
+            opacity: 0.8;
+            margin-left: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .nav-link {
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.75);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.10);
+        }
+
+        .nav-link.active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.20);
+            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.08);
+        }
+
+        /* ============================================================
+                   3. 页面容器
+                   ============================================================ */
+        .page {
+            display: none;
+            animation: fadeIn 0.35s ease;
+        }
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================================
+                   4. 主页 - 交通运输大图
+                   ============================================================ */
+        .hero-image {
+            position: relative;
+            width: 100%;
+            min-height: calc(100vh - 64px);
+            background-image: url('https://images.unsplash.com/photo-1494526585095-c41746248156?w=1400&h=800&fit=crop&crop=center');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #1a2a3a;
+        }
+
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 1;
+        }
+
+        .hero-text {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #fff;
+            padding: 20px 24px;
+            max-width: 720px;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(32px, 7vw, 56px);
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.40);
+            margin-bottom: 12px;
+        }
+
+        .hero-text p {
+            font-size: clamp(16px, 2.5vw, 22px);
+            opacity: 0.92;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.30);
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .hero-credit {
+            position: absolute;
+            bottom: 16px;
+            right: 20px;
+            z-index: 2;
+            color: rgba(255, 255, 255, 0.50);
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+        .hero-credit a {
+            color: rgba(255, 255, 255, 0.60);
+            text-decoration: none;
+        }
+        .hero-credit a:hover {
+            color: #fff;
+        }
+
+        /* ============================================================
+                   5. 法条宣传页 & 视频宣传页 (共用卡片样式)
+                   ============================================================ */
+        .laws-page,
+        .videos-page {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 30px 20px 60px;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .page-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0b2a4a;
+            letter-spacing: 1px;
+        }
+        .page-header p {
+            color: #5a6a7a;
+            font-size: 16px;
+            margin-top: 6px;
+        }
+
+        /* 卡片列表容器 */
+        .laws-list,
+        .videos-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* 通用卡片样式 (法条 & 视频) */
+        .law-card,
+        .video-card {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e9edf4;
+            overflow: hidden;
+            transition: box-shadow 0.25s ease, border-color 0.25s ease;
+            cursor: pointer;
+        }
+
+        .law-card:hover,
+        .video-card:hover {
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+            border-color: #c8d4e0;
+        }
+
+        /* 卡片头部 */
+        .card-header {
+            padding: 18px 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0b2a4a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-title .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #0b2a4a;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .card-summary {
+            font-size: 15px;
+            color: #5a6a7a;
+            padding-left: 38px;
+        }
+
+        .card-toggle {
+            margin-left: auto;
+            font-size: 20px;
+            color: #8a9aa8;
+            transition: transform 0.3s ease;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+        .law-card.expanded .card-toggle,
+        .video-card.expanded .card-toggle {
+            transform: rotate(180deg);
+        }
+
+        /* 卡片详情区域 (收起/展开) */
+        .card-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.40s ease, padding 0.35s ease;
+            background: #f8faff;
+            border-top: 1px solid transparent;
+        }
+
+        .law-card.expanded .card-body,
+        .video-card.expanded .card-body {
+            max-height: 800px;
+            padding: 18px 22px 22px;
+            border-top-color: #e0e7f0;
+        }
+
+        .card-body-content {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #1e2a3a;
+            white-space: pre-wrap;
+        }
+
+        /* 视频特有：播放器容器 */
+        .video-wrapper {
+            margin: 8px 0 12px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #000;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .video-wrapper video {
+            width: 100%;
+            height: 100%;
+            display: block;
+            background: #111;
+        }
+
+        .video-desc {
+            font-size: 14px;
+            color: #3a5a7a;
+            margin-top: 6px;
+            padding: 8px 12px;
+            background: #eef3f9;
+            border-radius: 8px;
+        }
+
+        /* 占位提示 */
+        .placeholder-note {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 2px 14px;
+            background: #eef3f9;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #3a5a7a;
+        }
+
+        /* ============================================================
+                   6. 页脚
+                   ============================================================ */
+        .footer {
+            text-align: center;
+            padding: 28px 20px 24px;
+            color: #7a8a9a;
+            font-size: 14px;
+            border-top: 1px solid #e9edf4;
+            background: #fff;
+            margin-top: 10px;
+        }
+        .footer span {
+            opacity: 0.7;
+        }
+
+        /* ============================================================
+                   7. 移动端适配
+                   ============================================================ */
+        @media (max-width: 480px) {
+            body {
+                padding-top: 56px;
+            }
+            .header {
+                height: 56px;
+                padding: 0 14px;
+            }
+            .header-brand {
+                font-size: 15px;
+            }
+            .header-brand .icon {
+                font-size: 20px;
+                margin-right: 6px;
+            }
+            .header-brand .sub {
+                font-size: 12px;
+            }
+            .nav-link {
+                font-size: 14px;
+                padding: 6px 14px;
+                min-height: 38px;
+            }
+            .hero-image {
+                min-height: calc(100vh - 56px);
+            }
+            .hero-text h1 {
+                font-size: 28px;
+            }
+            .hero-text p {
+                font-size: 15px;
+            }
+            .laws-page,
+            .videos-page {
+                padding: 20px 14px 40px;
+            }
+            .page-header h2 {
+                font-size: 22px;
+            }
+            .card-header {
+                padding: 14px 16px;
+            }
+            .card-title {
+                font-size: 16px;
+                flex-wrap: wrap;
+            }
+            .card-title .badge {
+                width: 24px;
+                height: 24px;
+                font-size: 12px;
+            }
+            .card-summary {
+                font-size: 14px;
+                padding-left: 34px;
+            }
+            .law-card.expanded .card-body,
+            .video-card.expanded .card-body {
+                padding: 14px 16px 18px;
+            }
+            .card-body-content {
+                font-size: 14px;
+            }
+            .card-toggle {
+                font-size: 18px;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .header {
+                padding: 0 18px;
+            }
+            .hero-image {
+                min-height: calc(100vh - 64px);
+            }
+            .laws-page,
+            .videos-page {
+                padding: 24px 18px 50px;
+            }
+            .card-header {
+                padding: 16px 20px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .laws-page,
+            .videos-page {
+                padding: 40px 24px 70px;
+            }
+            .card-header {
+                padding: 22px 28px;
+            }
+            .law-card.expanded .card-body,
+            .video-card.expanded .card-body {
+                padding: 22px 28px 28px;
+            }
+        }
+
+        /* 工具类 */
+        ::selection {
+            background: #b3d4fc;
+            color: #0b2a4a;
+        }
+        button {
+            font-family: inherit;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================================
+    页头 / 导航栏
+    ============================================================ -->
+    <header class="header" role="banner">
+        <div class="header-brand">
+            <span class="icon">🚗</span>
+            交通运输普法
+            <span class="sub">· 法治同行</span>
+        </div>
+
+        <nav class="nav-links" role="navigation" aria-label="主导航">
+            <button class="nav-link active" data-page="home" id="navHome" aria-current="page">主页</button>
+            <button class="nav-link" data-page="laws" id="navLaws">法条宣传</button>
+            <!-- 新增：视频宣传按钮 -->
+            <button class="nav-link" data-page="videos" id="navVideos">视频宣传</button>
+        </nav>
+    </header>
+
+    <!-- ============================================================
+    主内容区域
+    ============================================================ -->
+    <main>
+
+        <!-- 页面1: 主页 -->
+        <section class="page active" id="pageHome" aria-label="主页">
+            <div class="home-page">
+                <div class="hero-image">
+                    <div class="hero-text">
+                        <h1>交通运输 · 法治护航</h1>
+                        <p>普及交通法律法规，共建安全有序的出行环境</p>
+                    </div>
+                    <div class="hero-credit">
+                        图片来自
+                        <a href="https://unsplash.com/zh-cn" target="_blank" rel="noopener noreferrer">Unsplash</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面2: 法条宣传页 -->
+        <section class="page" id="pageLaws" aria-label="法条宣传">
+            <div class="laws-page">
+                <div class="page-header">
+                    <h2>📜 交通运输相关法条</h2>
+                    <p>点击下方卡片，查看具体法条内容</p>
+                </div>
+                <div class="laws-list" id="lawsList">
+                    <!-- JS 动态生成 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        页面3: 视频宣传页 (新增)
+        ============================================================ -->
+        <section class="page" id="pageVideos" aria-label="视频宣传">
+            <div class="videos-page">
+                <div class="page-header">
+                    <h2>🎬 交通运输视频宣传</h2>
+                    <p>点击卡片，观看交通安全与法规宣传视频</p>
+                </div>
+                <div class="videos-list" id="videosList">
+                    <!-- JS 动态生成 -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============================================================
+    页脚
+    ============================================================ -->
+    <footer class="footer" role="contentinfo">
+        <span>© 2026 交通运输普法宣传 · 仅供学习参考</span>
+    </footer>
+
+    <!-- ============================================================
+    JavaScript 交互逻辑
+    ============================================================ -->
+    <script>
+        /**
+         * ============================================================
+         * 1. 法条数据 (您可在此修改)
+         * ============================================================
+         */
+        const lawsData = [{
+            id: 1,
+            title: '《中华人民共和国道路交通安全法》',
+            summary: '规范道路交通行为，保障道路交通安全与畅通。',
+            content: '【法条1 具体内容】\n\n第一条　为了维护道路交通秩序，预防和减少交通事故，保护人身安全，保护公民、法人和其他组织的财产安全及其他合法权益，提高通行效率，制定本法。\n\n第二条　中华人民共和国境内的车辆驾驶人、行人、乘车人以及与道路交通活动有关的单位和个人，都应当遵守本法。\n\n……（更多内容请用户自行填充）'
+        }, {
+            id: 2,
+            title: '《中华人民共和国公路法》',
+            summary: '规范公路规划、建设、养护和管理，保障公路完好与畅通。',
+            content: '【法条2 具体内容】\n\n第一条　为了加强公路的建设和管理，促进公路事业的发展，适应社会主义现代化建设和人民生活的需要，制定本法。\n\n第二条　本法适用于中华人民共和国境内的公路规划、建设、养护、经营、使用和管理。\n\n……（更多内容请用户自行填充）'
+        }, {
+            id: 3,
+            title: '《中华人民共和国铁路法》',
+            summary: '保障铁路运输安全，规范铁路建设与运营管理。',
+            content: '【法条3 具体内容】\n\n第一条　为了保障铁路运输和铁路建设的顺利进行，适应社会主义现代化建设和人民生活的需要，制定本法。\n\n第二条　本法所称铁路，包括国家铁路、地方铁路、专用铁路和铁路专用线。\n\n……（更多内容请用户自行填充）'
+        }, {
+            id: 4,
+            title: '《中华人民共和国民用航空法》',
+            summary: '规范民用航空活动，保障民用航空安全与秩序。',
+            content: '【法条4 具体内容】\n\n第一条　为了维护国家的领空主权和民用航空权利，保障民用航空活动安全和有秩序地进行，保护民用航空活动当事人各方的合法权益，促进民用航空事业的发展，制定本法。\n\n第二条　本法适用于中华人民共和国境内和境外从事民用航空活动的所有单位和个人。\n\n……（更多内容请用户自行填充）'
+        }];
+
+        /**
+         * ============================================================
+         * 2. 视频数据 (新增，您可在此替换视频链接)
+         * ============================================================
+         */
+        const videosData = [{
+            id: 1,
+            title: '交通安全公益宣传片',
+            summary: '提高交通安全意识，守护生命防线。',
+            // ★ 请替换 src 为您的视频文件链接，poster 为封面图 ★
+            videoSrc: 'https://www.w3schools.com/html/mov_bbb.mp4',
+            poster: 'https://via.placeholder.com/640x360/0b2a4a/ffffff?text=Transport+Safety',
+            desc: '本片通过真实案例，强调遵守交通规则的重要性。'
+        }, {
+            id: 2,
+            title: '铁路安全警示教育',
+            summary: '知路爱路护路，共筑平安铁路。',
+            videoSrc: 'https://www.w3schools.com/html/mov_bbb.mp4',
+            poster: 'https://via.placeholder.com/640x360/2a4a0b/ffffff?text=Railway+Safety',
+            desc: '讲解铁路沿线的安全注意事项，严禁在铁轨上行走玩耍。'
+        }, {
+            id: 3,
+            title: '民用航空安全须知',
+            summary: '乘机安全小贴士，平安出行每一步。',
+            videoSrc: 'https://www.w3schools.com/html/mov_bbb.mp4',
+            poster: 'https://via.placeholder.com/640x360/4a2a0b/ffffff?text=Aviation+Safety',
+            desc: '介绍飞行过程中的安全规定，包括系好安全带、关闭电子设备等。'
+        }];
+
+        /**
+         * ============================================================
+         * 3. DOM 引用
+         * ============================================================
+         */
+        const navHome = document.getElementById('navHome');
+        const navLaws = document.getElementById('navLaws');
+        const navVideos = document.getElementById('navVideos');
+        const pageHome = document.getElementById('pageHome');
+        const pageLaws = document.getElementById('pageLaws');
+        const pageVideos = document.getElementById('pageVideos');
+        const lawsListEl = document.getElementById('lawsList');
+        const videosListEl = document.getElementById('videosList');
+
+        /**
+         * ============================================================
+         * 4. 页面切换函数
+         * ============================================================
+         */
+        function switchPage(pageName) {
+            // 隐藏所有页面
+            document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+
+            if (pageName === 'home') {
+                pageHome.classList.add('active');
+                navHome.classList.add('active');
+                navHome.setAttribute('aria-current', 'page');
+                navLaws.removeAttribute('aria-current');
+                navVideos.removeAttribute('aria-current');
+            } else if (pageName === 'laws') {
+                pageLaws.classList.add('active');
+                navLaws.classList.add('active');
+                navLaws.setAttribute('aria-current', 'page');
+                navHome.removeAttribute('aria-current');
+                navVideos.removeAttribute('aria-current');
+            } else if (pageName === 'videos') {
+                pageVideos.classList.add('active');
+                navVideos.classList.add('active');
+                navVideos.setAttribute('aria-current', 'page');
+                navHome.removeAttribute('aria-current');
+                navLaws.removeAttribute('aria-current');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /**
+         * ============================================================
+         * 5. 渲染法条列表
+         * ============================================================
+         */
+        function renderLaws() {
+            lawsListEl.innerHTML = '';
+            lawsData.forEach((law, index) => {
+                const card = document.createElement('div');
+                card.className = 'law-card';
+                card.dataset.lawId = law.id;
+
+                const header = document.createElement('div');
+                header.className = 'card-header';
+
+                const titleRow = document.createElement('div');
+                titleRow.className = 'card-title';
+                const badge = document.createElement('span');
+                badge.className = 'badge';
+                badge.textContent = index + 1;
+                const titleText = document.createElement('span');
+                titleText.textContent = law.title;
+                const toggleIcon = document.createElement('span');
+                toggleIcon.className = 'card-toggle';
+                toggleIcon.textContent = '▼';
+                toggleIcon.setAttribute('aria-hidden', 'true');
+
+                titleRow.appendChild(badge);
+                titleRow.appendChild(titleText);
+                titleRow.appendChild(toggleIcon);
+
+                const summary = document.createElement('div');
+                summary.className = 'card-summary';
+                summary.textContent = law.summary;
+
+                header.appendChild(titleRow);
+                header.appendChild(summary);
+
+                const body = document.createElement('div');
+                body.className = 'card-body';
+                const content = document.createElement('div');
+                content.className = 'card-body-content';
+                content.textContent = law.content;
+
+                const note = document.createElement('div');
+                note.className = 'placeholder-note';
+                note.textContent = '✏️ 可编辑：替换为实际法条内容';
+                content.appendChild(note);
+                body.appendChild(content);
+
+                card.appendChild(header);
+                card.appendChild(body);
+
+                card.addEventListener('click', function() {
+                    this.classList.toggle('expanded');
+                });
+
+                lawsListEl.appendChild(card);
+            });
+        }
+
+        /**
+         * ============================================================
+         * 6. 渲染视频列表 (新增)
+         * ============================================================
+         */
+        function renderVideos() {
+            videosListEl.innerHTML = '';
+            videosData.forEach((video, index) => {
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                card.dataset.videoId = video.id;
+
+                // --- 头部 ---
+                const header = document.createElement('div');
+                header.className = 'card-header';
+
+                const titleRow = document.createElement('div');
+                titleRow.className = 'card-title';
+                const badge = document.createElement('span');
+                badge.className = 'badge';
+                badge.textContent = index + 1;
+                const titleText = document.createElement('span');
+                titleText.textContent = video.title;
+                const toggleIcon = document.createElement('span');
+                toggleIcon.className = 'card-toggle';
+                toggleIcon.textContent = '▼';
+                toggleIcon.setAttribute('aria-hidden', 'true');
+
+                titleRow.appendChild(badge);
+                titleRow.appendChild(titleText);
+                titleRow.appendChild(toggleIcon);
+
+                const summary = document.createElement('div');
+                summary.className = 'card-summary';
+                summary.textContent = video.summary;
+
+                header.appendChild(titleRow);
+                header.appendChild(summary);
+
+                // --- 主体 (视频播放器) ---
+                const body = document.createElement('div');
+                body.className = 'card-body';
+
+                const content = document.createElement('div');
+                content.className = 'card-body-content';
+
+                // 视频容器
+                const wrapper = document.createElement('div');
+                wrapper.className = 'video-wrapper';
+
+                const videoEl = document.createElement('video');
+                videoEl.controls = true;
+                videoEl.preload = 'metadata';
+                videoEl.poster = video.poster; // 封面图
+                videoEl.style.width = '100%';
+                videoEl.style.height = '100%';
+
+                const source = document.createElement('source');
+                source.src = video.videoSrc;
+                source.type = 'video/mp4';
+                videoEl.appendChild(source);
+                videoEl.textContent = '您的浏览器不支持视频播放，请更换浏览器后重试。';
+
+                wrapper.appendChild(videoEl);
+                content.appendChild(wrapper);
+
+                // 视频描述
+                const desc = document.createElement('div');
+                desc.className = 'video-desc';
+                desc.textContent = video.desc;
+                content.appendChild(desc);
+
+                // 占位提示 (提醒用户替换视频链接)
+                const note = document.createElement('div');
+                note.className = 'placeholder-note';
+                note.textContent = '🎥 请替换 videoSrc 为您的实际视频地址';
+                content.appendChild(note);
+
+                body.appendChild(content);
+
+                card.appendChild(header);
+                card.appendChild(body);
+
+                // 点击展开/收起
+                card.addEventListener('click', function() {
+                    this.classList.toggle('expanded');
+                });
+
+                videosListEl.appendChild(card);
+            });
+        }
+
+        /**
+         * ============================================================
+         * 7. 绑定导航事件
+         * ============================================================
+         */
+        navHome.addEventListener('click', function() { switchPage('home'); });
+        navLaws.addEventListener('click', function() { switchPage('laws'); });
+        navVideos.addEventListener('click', function() { switchPage('videos'); });
+
+        /**
+         * ============================================================
+         * 8. 初始化
+         * ============================================================
+         */
+        renderLaws();
+        renderVideos();
+        switchPage('home'); // 默认显示主页
+
+        console.log('✅ 交通运输普法页面已加载 (含视频模块)');
+        console.log('📌 法条数据存储在 lawsData 中');
+        console.log('📌 视频数据存储在 videosData 中，可替换 videoSrc 和 poster');
+
+        // ESC 收起所有卡片
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.law-card.expanded, .video-card.expanded').forEach(card => {
+                    card.classList.remove('expanded');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
