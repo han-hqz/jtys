@@ -107,7 +107,7 @@ const videosData = [
         title: '演讲',
         summary: '测试。',
         videoSrc: './video/aa.mp4',        // 视频文件路径
-        poster: '',                        // 封面图地址（可留空）
+        poster: './images/aa.jpg',                        // 封面图地址
         desc: '测试。',
 	},
 	{
@@ -115,7 +115,7 @@ const videosData = [
 		title: '我是大队长1',
 		summary: '测试。',
 		videoSrc: './video/我是大队长1.mp4',        // 视频文件路径
-		poster: '',                        // 封面图地址（可留空）
+		poster: './images/我是大队长1.jpg',                        // 封面图地址
 		desc: '测试。',
 	},
 	{
@@ -123,7 +123,7 @@ const videosData = [
 		title: '我是大队长2',
 		summary: '测试。',
 		videoSrc: './video/我是大队长2.mp4',        // 视频文件路径
-		poster: '',                        // 封面图地址（可留空）
+		poster: './images/我是大队长2.jpg',                        // 封面图地址
 		desc: '测试。',
     }
 ];
