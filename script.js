@@ -316,7 +316,7 @@ function renderVideos() {
         // --- 创建视频元素 ---
         const videoEl = document.createElement('video');
         videoEl.controls = true;          // 显示播放控制条
-        videoEl.preload = 'metadata';     // 仅预加载元数据（时长、尺寸等）
+        videoEl.preload = 'none';     // 点击后再加载
         // 如果有封面图则设置
         if (video.poster && video.poster.trim() !== '') {
             videoEl.poster = video.poster;
