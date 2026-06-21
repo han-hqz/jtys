@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>交通运输普法宣传 · 视频</title>
+    <!-- 引入外部 CSS -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- ========== 页头 / 导航栏 ========== -->
+    <header class="header" role="banner">
+        <div class="header-brand">
+            <span class="icon">🚗</span>
+            交通运输普法
+            <span class="sub">· 法治同行</span>
+        </div>
+        <nav class="nav-links" role="navigation" aria-label="主导航">
+            <button class="nav-link active" data-page="home" id="navHome" aria-current="page">主页</button>
+            <button class="nav-link" data-page="laws" id="navLaws">法条宣传</button>
+            <button class="nav-link" data-page="videos" id="navVideos">视频宣传</button>
+        </nav>
+    </header>
+
+    <!-- ========== 主内容区域 ========== -->
+    <main>
+
+        <!-- 页面1: 主页 -->
+        <section class="page active" id="pageHome" aria-label="主页">
+            <div class="home-page">
+                <div class="hero-image">
+                    <div class="hero-text">
+                        <h1>交通运输 · 法治护航</h1>
+                        <p>普及交通法律法规，共建安全有序的出行环境</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面2: 法条宣传 -->
+        <section class="page" id="pageLaws" aria-label="法条宣传">
+            <div class="laws-page">
+                <div class="page-header">
+                    <h2>📜 交通运输相关法条</h2>
+                    <p>点击下方卡片，查看具体法条内容</p>
+                </div>
+                <div class="laws-list" id="lawsList">
+                    <!-- JS 动态生成 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面3: 视频宣传 -->
+        <section class="page" id="pageVideos" aria-label="视频宣传">
+            <div class="videos-page">
+                <div class="page-header">
+                    <h2>🎬 交通运输视频宣传</h2>
+                    <p>点击卡片，观看交通安全与法规宣传视频</p>
+                </div>
+                <div class="videos-list" id="videosList">
+                    <!-- JS 动态生成 -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========== 页脚 ========== -->
+    <footer class="footer" role="contentinfo">
+        <span>© 2026 交通运输普法宣传 · 仅供学习参考</span>
+    </footer>
+
+    <!-- 引入外部 JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
