@@ -12,7 +12,7 @@ body {
     background-color: #f5f7fa;
     color: #1e2a3a;
     line-height: 1.6;
-    padding-top: 64px; /* 为固定导航栏留出空间 */
+    padding-top: 64px;
 }
 
 /* ============================================================
@@ -127,52 +127,12 @@ body {
     z-index: 1;
 }
 
-.hero-text {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    color: #fff;
-    padding: 20px 24px;
-    max-width: 720px;
-}
-
-.hero-text h1 {
-    font-size: clamp(32px, 7vw, 56px);
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.40);
-    margin-bottom: 12px;
-}
-
-.hero-text p {
-    font-size: clamp(16px, 2.5vw, 22px);
-    opacity: 0.92;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.30);
-    font-weight: 300;
-    letter-spacing: 1px;
-}
-
-.hero-credit {
-    position: absolute;
-    bottom: 16px;
-    right: 20px;
-    z-index: 2;
-    color: rgba(255, 255, 255, 0.50);
-    font-size: 12px;
-}
-.hero-credit a {
-    color: rgba(255, 255, 255, 0.60);
-    text-decoration: none;
-}
-.hero-credit a:hover {
-    color: #fff;
-}
-
 /* ============================================================
-   5. 法条宣传 & 视频宣传 通用卡片样式
+   5. 通用页面容器（法条 / 视频 / 警示教育）
    ============================================================ */
 .laws-page,
-.videos-page {
+.videos-page,
+.warnings-page {
     max-width: 880px;
     margin: 0 auto;
     padding: 30px 20px 60px;
@@ -194,16 +154,45 @@ body {
     margin-top: 6px;
 }
 
-.laws-list,
-.videos-list {
+/* ============================================================
+   6. 搜索框
+   ============================================================ */
+.search-box {
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+#lawSearchInput {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px 18px;
+    border: 2px solid #e0e7f0;
+    border-radius: 30px;
+    font-size: 16px;
+    background: #fff;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    outline: none;
+}
+
+#lawSearchInput:focus {
+    border-color: #0b2a4a;
+    box-shadow: 0 0 0 4px rgba(11, 42, 74, 0.1);
+}
+
+#lawSearchInput::placeholder {
+    color: #aab8c8;
+}
+
+/* ============================================================
+   7. 大法卡片（第一级）
+   ============================================================ */
+.laws-list {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-/* 卡片基础 */
-.law-card,
-.video-card {
+.law-parent-card {
     background: #ffffff;
     border-radius: 16px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
@@ -213,8 +202,197 @@ body {
     cursor: pointer;
 }
 
-.law-card:hover,
-.video-card:hover {
+.law-parent-card:hover {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+    border-color: #c8d4e0;
+}
+
+.law-parent-header {
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8faff;
+}
+
+.law-parent-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0b2a4a;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.law-parent-title .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #0b2a4a;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.law-parent-toggle {
+    font-size: 22px;
+    color: #8a9aa8;
+    transition: transform 0.3s ease;
+}
+
+.law-parent-card.expanded .law-parent-toggle {
+    transform: rotate(180deg);
+}
+
+.law-children-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s ease, padding 0.35s ease;
+    padding: 0 22px;
+    background: #ffffff;
+}
+
+.law-parent-card.expanded .law-children-container {
+    max-height: 2000px;
+    padding: 16px 22px 22px;
+}
+
+/* ============================================================
+   8. 子法卡片（第二级）
+   ============================================================ */
+.law-child-card {
+    background: #f8faff;
+    border-radius: 12px;
+    border: 1px solid #e9edf4;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: border-color 0.25s ease;
+    cursor: pointer;
+}
+
+.law-child-card:last-child {
+    margin-bottom: 0;
+}
+
+.law-child-card:hover {
+    border-color: #b0c4d8;
+}
+
+.law-child-header {
+    padding: 14px 18px;
+}
+
+.law-child-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #1e2a3a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.law-child-title .child-badge {
+    display: inline-block;
+    background: #dce4ed;
+    color: #1e2a3a;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 0 12px;
+    border-radius: 12px;
+    line-height: 24px;
+    flex-shrink: 0;
+}
+
+.law-child-title .child-title-text {
+    flex: 1;
+}
+
+.law-child-toggle {
+    margin-left: auto;
+    font-size: 18px;
+    color: #8a9aa8;
+    transition: transform 0.3s ease;
+}
+
+.law-child-card.expanded .law-child-toggle {
+    transform: rotate(180deg);
+}
+
+.law-child-summary {
+    font-size: 14px;
+    color: #5a6a7a;
+    padding-left: 28px;
+    margin-top: 4px;
+}
+
+.law-child-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.35s ease;
+    padding: 0 18px;
+    background: #ffffff;
+    border-top: 1px solid transparent;
+}
+
+.law-child-card.expanded .law-child-body {
+    max-height: 800px;
+    padding: 14px 18px 18px;
+    border-top-color: #e0e7f0;
+}
+
+.law-child-body-content {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #1e2a3a;
+    white-space: pre-wrap;
+}
+
+.highlight {
+    background-color: #ffeb3b;
+    font-weight: 600;
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+.no-result {
+    text-align: center;
+    padding: 40px 20px;
+    color: #8a9aa8;
+    font-size: 16px;
+    display: none;
+}
+.no-result.show {
+    display: block;
+}
+
+/* ============================================================
+   9. 视频卡片 & 警示教育卡片（共用样式）
+   ============================================================ */
+.videos-list,
+.warnings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.video-card,
+.warning-card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e9edf4;
+    overflow: hidden;
+    transition: box-shadow 0.25s ease, border-color 0.25s ease;
+    cursor: pointer;
+}
+
+.video-card:hover,
+.warning-card:hover {
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
     border-color: #c8d4e0;
 }
@@ -262,12 +440,11 @@ body {
     line-height: 1;
     flex-shrink: 0;
 }
-.law-card.expanded .card-toggle,
-.video-card.expanded .card-toggle {
+.video-card.expanded .card-toggle,
+.warning-card.expanded .card-toggle {
     transform: rotate(180deg);
 }
 
-/* 卡片展开区域 */
 .card-body {
     max-height: 0;
     overflow: hidden;
@@ -276,9 +453,9 @@ body {
     border-top: 1px solid transparent;
 }
 
-.law-card.expanded .card-body,
-.video-card.expanded .card-body {
-    max-height: 800px;
+.video-card.expanded .card-body,
+.warning-card.expanded .card-body {
+    max-height: 3000px;
     padding: 18px 22px 22px;
     border-top-color: #e0e7f0;
 }
@@ -290,7 +467,6 @@ body {
     white-space: pre-wrap;
 }
 
-/* 视频播放器 */
 .video-wrapper {
     margin: 8px 0 12px;
     border-radius: 12px;
@@ -317,19 +493,89 @@ body {
     border-radius: 8px;
 }
 
-/* 占位提示 */
-.placeholder-note {
-    display: inline-block;
-    margin-top: 8px;
-    padding: 2px 14px;
-    background: #eef3f9;
-    border-radius: 20px;
-    font-size: 13px;
-    color: #3a5a7a;
+/* ============================================================
+   10. 警示教育专用（图文混排 + 视频容器 + 首行缩进）
+   ============================================================ */
+.warning-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin: 12px 0;
+}
+
+.warning-card .card-body-content p {
+    text-indent: 2em;
+}
+
+.warning-images img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #e9edf4;
+    transition: transform 0.2s ease;
+}
+
+.warning-images img:hover {
+    transform: scale(1.02);
+}
+
+.warning-video-wrapper {
+    margin: 12px 0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+    aspect-ratio: 16 / 9;
+}
+
+.warning-video-wrapper video {
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 
 /* ============================================================
-   6. 页脚
+   11. 回到顶部按钮
+   ============================================================ */
+#backToTop {
+    position: fixed;
+    bottom: 30px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #0b2a4a;
+    color: #fff;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.2s ease;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#backToTop.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+#backToTop:hover {
+    background: #1a3a5a;
+    transform: scale(1.05);
+}
+
+#backToTop:active {
+    transform: scale(0.95);
+}
+
+/* ============================================================
+   12. 页脚
    ============================================================ */
 .footer {
     text-align: center;
@@ -345,7 +591,143 @@ body {
 }
 
 /* ============================================================
-   7. 移动端适配
+   13. 主页 - 电话信息叠加层
+   ============================================================ */
+.hero-text {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff;
+    padding: 20px 24px;
+    max-width: 820px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-text h1 {
+    font-size: clamp(32px, 7vw, 56px);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.40);
+    margin-bottom: 8px;
+}
+
+.hero-text .subtitle {
+    font-size: clamp(16px, 2.5vw, 22px);
+    opacity: 0.92;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.30);
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+}
+
+.contact-info-overlay {
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 16px;
+    padding: 18px 24px 22px;
+    width: 100%;
+    max-width: 600px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    text-align: left;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.contact-title {
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.contact-items {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.contact-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 8px;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: background 0.2s ease;
+}
+
+.contact-row:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.contact-row .label {
+    opacity: 0.85;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.contact-row .number {
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    margin-left: 16px;
+}
+
+/* ============================================================
+   14. 图片灯箱（双击放大）
+   ============================================================ */
+.lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.92);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 40px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.lightbox-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.lightbox-overlay img {
+    max-width: 95%;
+    max-height: 95%;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 8px 48px rgba(0, 0, 0, 0.6);
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.lightbox-overlay .close-hint {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 14px;
+    letter-spacing: 1px;
+    pointer-events: none;
+}
+
+/* ============================================================
+   15. 移动端适配
    ============================================================ */
 @media (max-width: 480px) {
     body { padding-top: 56px; }
@@ -371,18 +753,50 @@ body {
     .hero-image {
         min-height: calc(100vh - 56px);
     }
-    .hero-text h1 {
-        font-size: 28px;
+    .hero-text {
+        padding: 16px 12px;
     }
-    .hero-text p {
-        font-size: 15px;
+    .hero-text h1 {
+        font-size: 26px;
+    }
+    .hero-text .subtitle {
+        font-size: 14px;
+        margin-bottom: 16px;
     }
     .laws-page,
-    .videos-page {
+    .videos-page,
+    .warnings-page {
         padding: 20px 14px 40px;
     }
     .page-header h2 {
         font-size: 22px;
+    }
+    .law-parent-title {
+        font-size: 17px;
+    }
+    .law-parent-title .badge {
+        width: 26px;
+        height: 26px;
+        font-size: 12px;
+    }
+    .law-parent-header {
+        padding: 14px 16px;
+    }
+    .law-parent-card.expanded .law-children-container {
+        padding: 12px 14px 16px;
+    }
+    .law-child-title {
+        font-size: 15px;
+    }
+    .law-child-header {
+        padding: 12px 14px;
+    }
+    .law-child-card.expanded .law-child-body {
+        padding: 12px 14px 16px;
+    }
+    .law-child-summary {
+        font-size: 13px;
+        padding-left: 20px;
     }
     .card-header {
         padding: 14px 16px;
@@ -400,8 +814,8 @@ body {
         font-size: 14px;
         padding-left: 34px;
     }
-    .law-card.expanded .card-body,
-    .video-card.expanded .card-body {
+    .video-card.expanded .card-body,
+    .warning-card.expanded .card-body {
         padding: 14px 16px 18px;
     }
     .card-body-content {
@@ -409,6 +823,50 @@ body {
     }
     .card-toggle {
         font-size: 18px;
+    }
+    .contact-info-overlay {
+        padding: 14px 16px 18px;
+        border-radius: 12px;
+    }
+    .contact-title {
+        font-size: 16px;
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+    }
+    .contact-row {
+        font-size: 13px;
+        padding: 4px 4px;
+    }
+    .contact-row .label {
+        font-size: 12px;
+    }
+    .contact-row .number {
+        font-size: 14px;
+    }
+    .warning-images {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+    .warning-images img {
+        height: 120px;
+    }
+    .lightbox-overlay {
+        padding: 16px;
+    }
+    .lightbox-overlay .close-hint {
+        bottom: 16px;
+        font-size: 12px;
+    }
+    #lawSearchInput {
+        font-size: 15px;
+        padding: 10px 16px;
+    }
+    #backToTop {
+        width: 44px;
+        height: 44px;
+        font-size: 22px;
+        bottom: 20px;
+        right: 16px;
     }
 }
 
@@ -420,33 +878,59 @@ body {
         min-height: calc(100vh - 64px);
     }
     .laws-page,
-    .videos-page {
+    .videos-page,
+    .warnings-page {
         padding: 24px 18px 50px;
     }
     .card-header {
         padding: 16px 20px;
     }
+    .law-parent-header {
+        padding: 16px 20px;
+    }
+    .law-parent-card.expanded .law-children-container {
+        padding: 14px 20px 18px;
+    }
+    .contact-info-overlay {
+        padding: 16px 20px 20px;
+    }
+    .contact-title {
+        font-size: 17px;
+    }
 }
 
 @media (min-width: 1200px) {
     .laws-page,
-    .videos-page {
+    .videos-page,
+    .warnings-page {
         padding: 40px 24px 70px;
     }
     .card-header {
         padding: 22px 28px;
     }
-    .law-card.expanded .card-body,
-    .video-card.expanded .card-body {
+    .video-card.expanded .card-body,
+    .warning-card.expanded .card-body {
         padding: 22px 28px 28px;
+    }
+    .law-parent-header {
+        padding: 22px 28px;
+    }
+    .law-parent-card.expanded .law-children-container {
+        padding: 18px 28px 24px;
     }
 }
 
-/* 工具类 */
+/* ============================================================
+   16. 工具类
+   ============================================================ */
 ::selection {
     background: #b3d4fc;
     color: #0b2a4a;
 }
 button {
     font-family: inherit;
+}
+
+.video-card .card-body-content p {
+    text-indent: 2em;
 }
